@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "LALCustomTextView.h"
-@interface ViewController ()
+@interface ViewController ()<HKCustomTextViewDelegate>
 
 @property (nonatomic,copy)NSString *inputText;//要输入的内容
 
@@ -21,7 +21,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"textView";
-    _inputText = @"";
+    
     //textView
     LALCustomTextView *customTextView =[[NSBundle mainBundle] loadNibNamed:@"LALCustomTextView" owner:self options:nil].lastObject;
     
@@ -33,8 +33,10 @@
     customTextView.frame = CGRectMake(weakSelf.view.frame.origin.x, 0, weakSelf.view.frame.size.width, 200);
     
 }
-
-
-
+/** HKCustomTextViewDelegate代理方法，进行传值 */
+-(void)textViewDidChange:(UITextView *)textView{
+    //_inputText的值可以传给后台
+    _inputText = textView.text;
+}
 
 @end
